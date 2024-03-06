@@ -405,7 +405,6 @@ app.post("/todo", async (req, res) => {
     res.send(response);
 });
 
-{/* <div id="up${index}" class="emptydiv"></div> */ }
 
 
 
