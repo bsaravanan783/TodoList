@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do list </title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div >
+        <h1>Todo List</h1>
+        <form hx-trigger="submit" hx-post="/todo"  hx-target="#todos">
+        <input type="text" name="newTodoName" placeholder="add a todo ..." required>
+        <label>Reoccuring:</label>
+        <input type="checkbox" id="newTodoReoccuring" name="newTodoReoccuring" value="true">
+    
+        
+                <button  type="submit">Create</button>
+</form>
+<button id="showall" hx-trigger="click" hx-get="/routes" hx-target="#todos">Show All</button>
+
+    
+
+    <div id="todos" class="todos"> </div>
+
+
+    </div>
+
+
+
+<script>
+    
+
+
+    function updateTodo(id, index) {
+    const inputField = document.getElementById(`input${index}`);
+    const updatedValue = inputField.value;
+
+    const checkBoxField = document.getElementById(`checkbox${index}`);
+    const updatedCheckBox = checkBoxField.checked;
+
+    const updateButton = document.getElementById(`button${index}`);
+    updateButton.innerHTML = "updated";
+
+    const patchUrl = `/todo/${id}?updateTodoName=${encodeURIComponent(updatedValue)}&updateTodoReoccuring=${updatedCheckBox}`;
+
+    // Perform patch requestt
+    fetch(patchUrl, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }).then(response => {
+    });
+}
+
+
+
+
+</script>
+
+<input type="checkbox" value="true" >
+
+
+    
+    <script src="../index.js"></script>
+</body>
+</html>
